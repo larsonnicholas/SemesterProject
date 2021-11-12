@@ -34,6 +34,7 @@ int main(){
             else {
                 std::cout << "Something is wrong with how this file is formatted..." << std::endl;
             }
+            
             return 0;
     }
 //const std::string testfile = "testing.wav";
