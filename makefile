@@ -1,10 +1,8 @@
-wave: main.o wav.o waveheader.o
-	g++ -o main main.o
+wave: main.o wav.o
+	g++ -o wave main.o wav.o
 main.o: main.cpp
 	g++ -c main.cpp
-wav.o: wav.cpp wav.h waveheader.h
+wav.o: wav.cpp
 	g++ -c wav.cpp
-waveheader.o: waveheader.h
-	g++ -c waveheader.h
 clean:
 	rm *.o wave

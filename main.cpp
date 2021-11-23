@@ -8,35 +8,67 @@
 
 
 int main(){
-    int userChoice;
-    std::string filename;
-    std::cout << "Audio Software Start Menu\n\nPlease type the number of what you wish to select (#)\n1. Audio Processing\n2. Exit Program " << std::endl;
+
+    int userChoice = 1;
+    std::string filename, userfilename;
+    while(userChoice != 0) {
+    std::cout << "\n\n\nAudio Software Start Menu\n\nPlease type the number of what you wish to select (#)\n0: Exit Program\n1: Audio Processing " << std::endl;
     std::cin >> userChoice;
-    while (userChoice != 2 && userChoice != 1){
-        std::cout << "Incorrect input! Please type \"1\" for option 1, or \"2\" for option 2: ";
+    while (userChoice != 0 && userChoice != 1){
+        std::cout << "Incorrect input! Please type \"0\" for option 0, or \"1\" for option 1 (without \"\" of course): ";
         std::cin >> userChoice;
     }
-    if (userChoice == 2) { 
+
+    if (userChoice == 0) { 
         std::cout << "You chose to exit the file! If you did not chose this option, well that's too bad it's already not my problem anymore..." << std::endl;
-        return 0;
+        break;
     }
     else {
             std::cout << "Please enter the filename of the .wav file: ";
             std::cin >> filename;
             std::cout << "Your filename is: " << filename << std::endl;
-            std::size_t fileTrial = filename.rfind(".wav", 0 );
-            std::cout << fileTrial << std::endl;
-            if (fileTrial == -1) {
-                std::cout << "This is not a .wav file!" << std::endl;
-            } else if (fileTrial > 0) {
+
+            if (filename.length() < 4 || filename.substr(filename.length() - 4) != ".wav") {
+                std::cout << "This is not a .wav file, or you've made a typo!" << std::endl;
+                continue;
+            } else {
+                //Comment out line 41 for final version
                 std::cout << "Proper file type!" << std::endl;
+                try{
+                Wav wav;
+                wav.readFile(filename);
+                } 
+                catch(...){
+                    continue;
+                }
+                std::cout << "\n==Audio Processor Menu==\n0. Exit Program\n1. Echo\n2. Normalization\n3. Gain Adjustment";
+                std::cout << "\nPlease enter the option you wish to select: ";
+                std::cin >> userChoice;
+                while (!(userChoice >=0 && userChoice <=3)){
+                    std::cout << "Incorrect input! You must select an option between 0 and 3, try again :";
+                    std::cin >> userChoice;
+                }
+                if(userChoice == 0){
+                    std::cout << "You changed your mind, seriously?!" << std::endl;
+                }
+                else {
+                    std::cout << "Please enter the filename you wish to save your new audio to: ";
+                    std::cin >> userfilename;
+                    //Remove later on line 58
+                    std::cout << "Your output filename is: " << userfilename << std::endl;
+                    //switch 
+
+                    
+
+                    
+                }
+                continue;
             }
-            else {
-                std::cout << "Something is wrong with how this file is formatted..." << std::endl;
-            }
-            
-            return 0;
+        }
     }
+    
+            return 0;
+    
 //const std::string testfile = "testing.wav";
 //const std::string limitfile = "limit.wav";
 //const std::string noisefile = "noise.wav";
