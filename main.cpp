@@ -56,7 +56,23 @@ int main(){
                     std::cin >> userfilename;
                     //Remove later on line 58
                     std::cout << "Your output filename is: " << userfilename << std::endl;
-                    //switch 
+                    switch(userChoice){
+                        case 1:
+                        std::cout << "Echo!" << std::endl;
+                        //Echo
+                        //    Processor *processor = new Echo(10);
+                        //    processor->processBuffer(wav.getBuffer(),wav.getBufferSize());
+                        //    wav.writeFile("echos.wav");
+                        break;
+                        case 2:
+                        //Normal
+                        std::cout << "Normalization" << std::endl;
+                        break;
+                        case 3:
+                        //Gain
+                        std::cout << "Gain Adjustment" << std::endl;
+                        break;
+                    }
 
                     
 
