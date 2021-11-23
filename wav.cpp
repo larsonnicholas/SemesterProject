@@ -21,7 +21,7 @@ void Wav::readFile(const std::string &fileName){
         fileReader.read((char*)buffer, waveHeader.data_bytes);
         fileReader.close();
 
-        /* more test code
+        
         std::cout << waveHeader.riff_header << std::endl;
         std::cout << waveHeader.wav_size << std::endl;
         std::cout << waveHeader.wave_header << std::endl;
@@ -35,7 +35,7 @@ void Wav::readFile(const std::string &fileName){
         std::cout << waveHeader.bit_depth << std::endl;
         std::cout << waveHeader.data_header << std::endl;
         std::cout << waveHeader.data_bytes << std::endl;
-        */
+        
         //test code to ensure the file is being read properly
         //for (int i=0; i<=waveHeader.data_bytes; i++){
         //    printf("|%02hhx|", buffer[i]);
@@ -45,6 +45,7 @@ void Wav::readFile(const std::string &fileName){
 
 void Wav::writeFile(const std::string& outFile){
     std::ofstream fileWriter(outFile, std::ios::binary | std::ios::out);
+    fileWriter.write((char*) &waveHeader, sizeof(wav_header));
     fileWriter.write((char*)buffer, waveHeader.data_bytes);
     fileWriter.close();
 }
