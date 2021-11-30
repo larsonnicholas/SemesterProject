@@ -5,6 +5,9 @@
 #include <iostream>
 //#include "processor.h"
 #include "wav.h"
+#include "processor.h"
+#include "normalization.h"
+#include "echo.h"
 
 
 int main(){
@@ -26,7 +29,6 @@ int main(){
     else {
             std::cout << "Please enter the filename of the .wav file: ";
             std::cin >> filename;
-            std::cout << "Your filename is: " << filename << std::endl;
 
             if (filename.length() < 4 || filename.substr(filename.length() - 4) != ".wav") {
                 std::cout << "This is not a .wav file, or you've made a typo!" << std::endl;
@@ -37,42 +39,54 @@ int main(){
                 try{
                 Wav wav;
                 wav.readFile(filename);
+                
                 } 
                 catch(...){
                     continue;
                 }
+                Wav wav;
+                wav.readFile(filename);
+                wav.printMetaData(filename);
+
                 std::cout << "\n==Audio Processor Menu==\n0. Exit Program\n1. Echo\n2. Normalization\n3. Gain Adjustment";
                 std::cout << "\nPlease enter the option you wish to select: ";
                 std::cin >> userChoice;
+
                 while (!(userChoice >=0 && userChoice <=3)){
                     std::cout << "Incorrect input! You must select an option between 0 and 3, try again :";
                     std::cin >> userChoice;
                 }
+
                 if(userChoice == 0){
                     std::cout << "You changed your mind, seriously?!" << std::endl;
                 }
                 else {
                     std::cout << "Please enter the filename you wish to save your new audio to: ";
                     std::cin >> userfilename;
-                    //Remove later on line 58
-                    std::cout << "Your output filename is: " << userfilename << std::endl;
-                    Wav wav;
-                    wav.readFile(filename);
+                    
+                    //std::cout << "Your output filename is: " << userfilename << std::endl;
+                    Processor *processor;
+                    
                     switch(userChoice){
                         case 1:
                         std::cout << "Echo!" << std::endl;
                         //Echo
-                        //    Processor *processor = new Echo(10);
-                        //    processor->processBuffer(wav.getBuffer(),wav.getBufferSize());
+                        processor = new Echo(10);
+                        processor->processBuffer(wav.getBuffer(),wav.getBufferSize());
                         wav.writeFile(userfilename);
+
                         break;
+                       
                         case 2:
                         //Normal
                         std::cout << "Normalization" << std::endl;
+                        processor = new Normalization();
                         break;
+                        
                         case 3:
                         //Gain
                         std::cout << "Gain Adjustment" << std::endl;
+                        //processor = new Gain(1.2);
                         break;
                     }
 
