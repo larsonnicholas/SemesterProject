@@ -11,6 +11,9 @@ public:
     Wav() = default;
 	void readFile(const std::string &fileName);
     void printMetaData(const std::string &fileName);
+    int getBitRate(){
+        return waveHeader.bit_depth;
+    }
     void writeFile(const std::string &outFileName);
     unsigned char *getBuffer();
     int getBufferSize() const;

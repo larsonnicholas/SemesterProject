@@ -3,11 +3,11 @@
 //
 
 #include <iostream>
-//#include "processor.h"
 #include "wav.h"
 #include "processor.h"
 #include "normalization.h"
 #include "echo.h"
+#include "gain.h"
 
 
 int main(){
@@ -71,16 +71,25 @@ int main(){
                         case 1:
                         std::cout << "Echo!" << std::endl;
                         //Echo
+                        if(wav.getBitRate() == 8) {
                         processor = new Echo(10);
                         processor->processBuffer(wav.getBuffer(),wav.getBufferSize());
                         wav.writeFile(userfilename);
+                        }
+                        else {
+                        processor = new Echo(10);
+                        processor->process16Buffer(wav.getBuffer(),wav.getBufferSize());
+                        wav.writeFile(userfilename);
+                        }
 
                         break;
                        
                         case 2:
                         //Normal
-                        std::cout << "Normalization" << std::endl;
-                        processor = new Normalization();
+                         std::cout << "Normalization" << std::endl;
+                         processor = new Normalization();
+                         processor->processBuffer(wav.getBuffer(),wav.getBufferSize());
+                         wav.writeFile(userfilename);
                         break;
                         
                         case 3:

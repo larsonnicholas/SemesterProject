@@ -1,8 +1,8 @@
-wave: main.o wav.o
-	g++ -o wave main.o wav.o
-main.o: main.cpp
+main: main.o wav.o
+	g++ -o main main.o wav.o
+main.o: main.cpp normalization.h echo.h gain.h
 	g++ -c main.cpp
 wav.o: wav.cpp
 	g++ -c wav.cpp
 clean:
-	rm *.o wave
+	rm *.o main

@@ -8,7 +8,10 @@ public:
     Echo() = default;
     Echo(int newDelay) : delay(newDelay) {};
     void processBuffer(unsigned char* buffer, int bufferSize) override{
-        std::cout << "Echo processor" << std::endl;
+        std::cout << "Echo 8 bit" << std::endl;
+    };
+    void process16Buffer(unsigned char * buffer, int bufferSize) override {
+        std::cout << "Echo 16 bit" << std::endl;
     };
 };
 
